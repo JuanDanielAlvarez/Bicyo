@@ -5,6 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Key
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,39 +60,60 @@ fun Signup(navController: NavHostController) {
         Spacer(modifier = Modifier.height(32.dp))
         Column(horizontalAlignment = Alignment.Start) {
             Text(text = "Nombre")
-            TextField(
-                value = name.value,
-                onValueChange = { name.value = it },
-                placeholder = { Text(text = "Nombre Apellido") },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(
+                    Icons.Filled.Person,
+                    contentDescription = "user icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = name.value,
+                    onValueChange = { name.value = it },
+                    placeholder = { Text(text = "Nombre Apellido") },
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 )
-            )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Correo electrónico")
-            TextField(
-                value = email.value,
-                onValueChange = { email.value = it },
-                placeholder = { Text(text = "example@email.com") },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(
+                    Icons.Filled.Person,
+                    contentDescription = "user icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = email.value,
+                    onValueChange = { email.value = it },
+                    placeholder = { Text(text = "example@email.com") },
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 )
-            )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Contraseña")
-            TextField(
-                value = password.value,
-                onValueChange = { password.value = it },
-                placeholder = { Text(text = "***********") },
-                visualTransformation = if (passwordVisible.value) VisualTransformation.None
-                else PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(Icons.Filled.Key,
+                    contentDescription = "password icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = password.value,
+                    onValueChange = { password.value = it },
+                    placeholder = { Text(text = "***********") },
+                    visualTransformation = if (passwordVisible.value) VisualTransformation.None
+                    else PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 )
-            )
+            }
+
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController.navigate("explore/${currentUserId}") },

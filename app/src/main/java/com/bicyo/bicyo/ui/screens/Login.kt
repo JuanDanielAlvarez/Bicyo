@@ -1,5 +1,6 @@
 package com.bicyo.bicyo.ui.screens
 
+import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,6 +9,8 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,28 +62,41 @@ fun Login(navController: NavHostController) {
         Spacer(modifier = Modifier.height(32.dp))
         Column(horizontalAlignment = Alignment.Start) {
             Text(text = "Correo electrónico")
-            TextField(
-                value = email.value,
-                onValueChange = { email.value = it },
-                placeholder = { Text(text = "example@email.com") },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(Icons.Filled.Person,
+                    contentDescription = "user icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = email.value,
+                    onValueChange = { email.value = it },
+                    placeholder = { Text(text = "example@email.com") },
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 )
-            )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Contraseña")
-            TextField(
-                value = password.value,
-                onValueChange = { password.value = it },
-                placeholder = { Text(text = "***********") },
-                visualTransformation = if (passwordVisible.value) VisualTransformation.None
-                else PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(Icons.Filled.Key,
+                    contentDescription = "password icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = password.value,
+                    onValueChange = { password.value = it },
+                    placeholder = { Text(text = "***********") },
+                    visualTransformation = if (passwordVisible.value) VisualTransformation.None
+                    else PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 )
-            )
+            }
+
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController.navigate("explore/${currentUserId}") },
@@ -90,12 +106,11 @@ fun Login(navController: NavHostController) {
                 ),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text(text = "LOG IN",
+            Text(text = "iniciar sesión",
                 fontSize = 20.sp)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Row(Modifier.wrapContentSize(Alignment.Center),
-            ) {
+        Row(Modifier.wrapContentSize(Alignment.Center)) {
             Text(text = "aún no tienes cuenta?")
             Spacer(modifier = Modifier.width(4.dp))
             Text(
