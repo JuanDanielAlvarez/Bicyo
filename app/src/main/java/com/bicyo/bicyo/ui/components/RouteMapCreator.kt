@@ -33,7 +33,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 @Composable
-fun ColumnScope.RouteMap(route: Route) {
+fun ColumnScope.RouteMapCreator(route: Route) {
     var mapProperties by remember {
         mutableStateOf(
             MapProperties(
@@ -64,7 +64,7 @@ fun ColumnScope.RouteMap(route: Route) {
     var endPoint by remember { mutableStateOf(LatLng(-0.21, -78.49)) }
     var isFirstPoint by remember { mutableStateOf(true)}
 
-    if (!pathIsRendered and !isFirstPoint and (startPoint.latitude != endPoint.latitude) and (startPoint.longitude != endPoint.longitude)) {
+    if (!pathIsRendered and !isFirstPoint and !((startPoint.latitude == endPoint.latitude) and (startPoint.longitude == endPoint.longitude))) {
         object : TaskRequestDirections() {
             override fun onPostExecute(latLngList: MutableList<LatLng>) {
                 renderedPaths.set(renderedPaths.indexOfLast { true },latLngList)
@@ -187,67 +187,4 @@ private fun AskLocationPermissions(content: @Composable () -> Unit) {
     } else {
         content()
     }
-}
-
-private fun getRequestUrl(origin: LatLng, dest: LatLng): String {
-    //Value of origin
-    val str_org = "origin=" + origin.latitude + "," + origin.longitude
-    //Value of destination
-    val str_dest = "destination=" + dest.latitude + "," + dest.longitude
-    //Set value enable the sensor
-    val sensor = "sensor=false"
-    //Mode for find direction
-    val mode = "mode=driving"
-    //key
-    val key = "key=AIzaSyCvNGAOwxkluZFfh--Hy8zpMqgnKc0h7yk"
-    //Build the full param
-    val param = "$str_org&$str_dest&$sensor&$mode&$key"
-    //Output format
-    val output = "json"
-    //Create url to request
-    return "https://maps.googleapis.com/maps/api/directions/$output?$param"
-}
-
-@Throws(IOException::class)
-private fun requestDirection(reqUrl: String): String {
-    var responseString = ""
-    var inputStream: InputStream? = null
-    var httpURLConnection: HttpURLConnection? = null
-    try {
-        val url = URL(reqUrl)
-        httpURLConnection = url.openConnection() as HttpURLConnection
-        httpURLConnection.connect()
-
-        //Get the response result
-        inputStream = httpURLConnection!!.inputStream
-        val inputStreamReader = InputStreamReader(inputStream)
-        val bufferedReader = BufferedReader(inputStreamReader)
-        val stringBuffer = StringBuffer()
-        var line: String? = ""
-        while (bufferedReader.readLine().also { line = it } != null) {
-            stringBuffer.append(line)
-        }
-        responseString = stringBuffer.toString()
-        bufferedReader.close()
-        inputStreamReader.close()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    } finally {
-        inputStream?.close()
-        httpURLConnection!!.disconnect()
-    }
-    return responseString
-}
-
-private fun parsePathJson(strings: List<String>): List<List<HashMap<String?, String?>?>?>? {
-    var jsonObject: JSONObject? = null
-    var routes: List<List<HashMap<String?, String?>?>?>? = null
-    try {
-        jsonObject = JSONObject(strings.get(0))
-        val directionsParser = DirectionsParser()
-        routes = directionsParser.parse(jsonObject)
-    } catch (e: JSONException) {
-        e.printStackTrace()
-    }
-    return routes
 }
