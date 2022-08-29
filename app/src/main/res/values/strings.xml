@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bicyo</string>
+    <string name="login">inciar sesión</string>
 </resources>
