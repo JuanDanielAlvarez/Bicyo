@@ -61,7 +61,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
         mutableStateOf(user.description)
     }
 
-    val imageUri = rememberSaveable { mutableStateOf("") }
+    val imageUri = rememberSaveable { mutableStateOf(user.profilePictureUrl) }
     val painter = rememberImagePainter(
         if (imageUri.value.isEmpty())
             R.drawable.spinner
@@ -74,9 +74,11 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
         uri?.let { imageUri.value = it.toString() }
     }
 
-    Text(text = "Mi perfil",
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Text(text = "Mi perfil / editar perfil",
         style = TextStyle(
-            fontSize = 24.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold)
     )
 
@@ -86,6 +88,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
         modifier = Modifier
             .fillMaxSize()
     ){
+        Spacer(modifier = Modifier.height(30.dp))
         Column(
             modifier = Modifier
                 .padding(8.dp)
@@ -107,7 +110,16 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
                     contentScale = ContentScale.Crop
                 )
             }
-            Text(text = "Change profile picture")
+            Button(onClick = { navController.navigate("explore/${currentUserId}") },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF000000),
+                    contentColor = Color(0xFFFFFFFF)
+                ),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(text = "Cambiar foto de perfil",
+                    fontSize = 16.sp)
+            }
         }
     }
 
@@ -120,20 +132,21 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
     ){
 
 
-        Spacer(modifier = Modifier.height(175.dp))
+        Spacer(modifier = Modifier.height(225.dp))
         Column(horizontalAlignment = Alignment.Start) {
             Text(text = "Nombre")
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(
                     Icons.Filled.Person,
                     contentDescription = "user icon",
-                    Modifier.size(40.dp),
+                    Modifier.size(30.dp),
                     tint = Color.Gray)
                 TextField(
                     value = name.value,
                     onValueChange = { name.value = it },
                     placeholder = { Text(text = "Nombre Apellido") },
-                    modifier = Modifier.fillMaxWidth(0.8f),
+                    modifier = Modifier.fillMaxWidth(0.8f)
+                                       .fillMaxHeight(0.1f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
                     )
@@ -145,7 +158,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
                 Icon(
                     Icons.Filled.Person,
                     contentDescription = "user icon",
-                    Modifier.size(40.dp),
+                    Modifier.size(30.dp),
                     tint = Color.Gray)
                 TextField(
                     value = email.value,
@@ -162,7 +175,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(Icons.Filled.Key,
                     contentDescription = "password icon",
-                    Modifier.size(40.dp),
+                    Modifier.size(30.dp),
                     tint = Color.Gray)
                 TextField(
                     value = password.value,
@@ -177,7 +190,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(75.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             Text(text = "Acerca de mi")
             Row(verticalAlignment = Alignment.Bottom) {
@@ -199,7 +212,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
         }
 
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Button(onClick = { navController.navigate("explore/${currentUserId}") },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFF000000),
@@ -208,7 +221,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
             shape = RoundedCornerShape(16.dp)
         ) {
             Text(text = "Guardar",
-                fontSize = 20.sp)
+                fontSize = 18.sp)
         }
 
     }
