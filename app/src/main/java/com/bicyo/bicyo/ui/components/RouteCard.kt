@@ -16,6 +16,7 @@ import com.bicyo.bicyo.entities.CyclingGroup
 import com.bicyo.bicyo.entities.Route
 import com.bicyo.bicyo.entities.User
 import com.bicyo.bicyo.ui.theme.BicyoTheme
+import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun RouteCard(navController: NavHostController, route: Route){
@@ -41,6 +42,6 @@ fun RouteCardPreview() {
     val navController = rememberNavController()
     BicyoTheme {
         val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
-        RouteCard(navController, Route(1, 1, "Ruta 1",100.0f, user,null))
+        RouteCard(navController, Route(1, 1, "Ruta 1",100.0f, user,null, mutableListOf()))
     }
 }

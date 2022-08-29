@@ -24,7 +24,7 @@ fun CreateRouteMap(navController:NavHostController, userId:Int, groupId:Int) {
         Text(text = "Create Route")
 
         val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
-        val currentRoute = Route(1,1,"Ruta 1",100.0f,user,null)
+        val currentRoute = Route(1,1,"Ruta 1",100.0f,user,null,mutableListOf())
         RouteMap(currentRoute)
 
         Button(onClick = {
