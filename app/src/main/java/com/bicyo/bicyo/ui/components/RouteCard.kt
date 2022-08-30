@@ -95,7 +95,7 @@ fun RouteCardPreview() {
         val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
 
         RouteCard(navController,
-            Route(1, 1, "Ruta 1",100.0f, user,null),
+            Route(1, 1, "Ruta 1",100.0f, user,null,mutableListOf()),
             User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf()))
 
     }

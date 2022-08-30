@@ -6,7 +6,7 @@ import com.bicyo.bicyo.data.entities.User
 import java.util.*
 
 class RouteDAO() : DAO<Route> {
-    override fun get(id: Long): Route? {
+    override fun get(id: Int): Route? {
         val user = User(
             1,
             "juan.alvarez@epn.edu.ec",
@@ -44,7 +44,8 @@ class RouteDAO() : DAO<Route> {
         return Route(1, 1, "Ruta 1", 100.0f, user, null, mutableListOf())
     }
 
-    override fun getAll(): List<Route> {
+    fun getAllForGroup(groupId: Int): List<Route> {
+        //Obtener todos los grupos en base al id del usuario
         val user = User(
             1,
             "juan.alvarez@epn.edu.ec",

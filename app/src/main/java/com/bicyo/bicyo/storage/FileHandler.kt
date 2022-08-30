@@ -1,4 +1,5 @@
-package alvarez.juan.cazarpatos.storage
+package com.bicyo.bicyo.storage
+
 
 interface FileHandler {
     fun SaveInformation(datosAGrabar:Pair<String,String>)

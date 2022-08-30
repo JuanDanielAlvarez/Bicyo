@@ -1,4 +1,4 @@
-package alvarez.juan.cazarpatos.storage
+package com.bicyo.bicyo.storage
 
 const val EXTRA_LOGIN = "EXTRA_LOGIN"
 const val LOGIN_KEY = "LOGIN_KEY"
