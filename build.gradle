@@ -1,6 +1,10 @@
 buildscript {
     ext {
         compose_version = '1.2.0'
+        acompanist_version = '0.24.9-beta'
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.13'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Bicyo"
         tools:targetApi="31">
         <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4779813776894749~5547704833"/>
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCvNGAOwxkluZFfh--Hy8zpMqgnKc0h7yk"/>
         <activity
