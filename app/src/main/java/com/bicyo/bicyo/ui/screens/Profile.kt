@@ -113,7 +113,7 @@ fun Profile(navController: NavHostController, userId: Int?) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            Button(onClick = { navController.navigate("explore/${currentUserId}") },
+            Button(onClick = { navController.navigate("edit_profile/${currentUserId}") },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFF000000),
                     contentColor = Color(0xFFFFFFFF)

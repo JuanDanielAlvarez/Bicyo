@@ -38,6 +38,7 @@ import com.bicyo.bicyo.entities.User
 import com.bicyo.bicyo.ui.components.ImageFromUrl
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
+
 @Composable
 fun EditProfile(navController: NavHostController, userId: Int?) {
 
@@ -61,12 +62,10 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
         mutableStateOf(user.description)
     }
 
-    val imageUri = rememberSaveable { mutableStateOf(user.profilePictureUrl) }
+
+    val imageUri = rememberSaveable { mutableStateOf("") }
     val painter = rememberImagePainter(
-        if (imageUri.value.isEmpty())
-            R.drawable.spinner
-        else
-            imageUri.value
+        imageUri.value.ifEmpty { R.drawable.spinner }
     )
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -110,6 +109,7 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
                     contentScale = ContentScale.Crop
                 )
             }
+
             Button(onClick = { navController.navigate("explore/${currentUserId}") },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFF000000),
