@@ -120,7 +120,7 @@ fun Profile(navController: NavHostController, userId: Int?) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "Guardar",
+                Text(text = "Editar perfil",
                     fontSize = 18.sp)
             }
 
