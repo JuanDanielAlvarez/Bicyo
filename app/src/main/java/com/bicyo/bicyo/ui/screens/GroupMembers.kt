@@ -1,6 +1,5 @@
 package com.bicyo.bicyo.ui.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
@@ -9,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.CyclingGroup
-import com.bicyo.bicyo.entities.User
+import com.bicyo.bicyo.data.entities.CyclingGroup
+import com.bicyo.bicyo.data.entities.User
 import com.bicyo.bicyo.ui.components.GroupsTopBar
 import com.bicyo.bicyo.ui.components.UserCard
 import com.bicyo.bicyo.ui.theme.BicyoTheme

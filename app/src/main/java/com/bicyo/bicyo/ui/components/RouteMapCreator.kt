@@ -16,21 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import com.bicyo.bicyo.entities.Route
-import com.bicyo.bicyo.tools.DirectionsParser
+import com.bicyo.bicyo.data.entities.Route
 import com.bicyo.bicyo.tools.TaskRequestDirections
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
-import okhttp3.internal.wait
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 
 @Composable
 fun ColumnScope.RouteMapCreator(route: Route) {

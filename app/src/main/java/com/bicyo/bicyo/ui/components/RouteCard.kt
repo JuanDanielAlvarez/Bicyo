@@ -12,11 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.CyclingGroup
-import com.bicyo.bicyo.entities.Route
-import com.bicyo.bicyo.entities.User
+import com.bicyo.bicyo.data.entities.Route
+import com.bicyo.bicyo.data.entities.User
 import com.bicyo.bicyo.ui.theme.BicyoTheme
-import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun RouteCard(navController: NavHostController, route: Route){

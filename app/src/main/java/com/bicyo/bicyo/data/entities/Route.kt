@@ -1,4 +1,4 @@
-package com.bicyo.bicyo.entities
+package com.bicyo.bicyo.data.entities
 
 import com.google.android.gms.maps.model.LatLng
 
