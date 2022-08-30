@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -18,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bicyo.bicyo.ui.theme.BicyoTheme
+import com.bicyo.bicyo.R
 
 @Composable
 fun Login(navController: NavHostController) {
@@ -49,28 +50,28 @@ fun Login(navController: NavHostController) {
         val passwordVisible = remember {
             mutableStateOf(false)
         }
-        Text(text = "BICyO",
+        Text(text = stringResource(id = R.string.app),
             style = TextStyle(
                 fontSize = 64.sp,
                 fontWeight = FontWeight.Bold)
         )
-        Text(text = "iniciar sesión",
+        Text(text = stringResource(id = R.string.login),
                 style = TextStyle(
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Bold)
         )
         Spacer(modifier = Modifier.height(32.dp))
         Column(horizontalAlignment = Alignment.Start) {
-            Text(text = "Correo electrónico")
+            Text(text = stringResource(id = R.string.email))
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(Icons.Filled.Person,
-                    contentDescription = "user icon",
+                    contentDescription = stringResource(id = R.string.user_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
                     value = email.value,
                     onValueChange = { email.value = it },
-                    placeholder = { Text(text = "example@email.com") },
+                    placeholder = { Text(text = stringResource(id = R.string.email_textField)) },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
@@ -78,16 +79,16 @@ fun Login(navController: NavHostController) {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Contraseña")
+            Text(text = stringResource(id = R.string.password))
             Row(verticalAlignment = Alignment.Bottom) {
-                Icon(Icons.Filled.Key,
-                    contentDescription = "password icon",
+                Icon(painter = painterResource(id = R.drawable.candado_cerrado),
+                    contentDescription = stringResource(id = R.string.password_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
                     value = password.value,
                     onValueChange = { password.value = it },
-                    placeholder = { Text(text = "***********") },
+                    placeholder = { Text(text = stringResource(id = R.string.password_textField)) },
                     visualTransformation = if (passwordVisible.value) VisualTransformation.None
                     else PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(0.8f),
@@ -106,19 +107,19 @@ fun Login(navController: NavHostController) {
                 ),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text(text = "iniciar sesión",
+            Text(text = stringResource(id = R.string.login),
                 fontSize = 20.sp)
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(Modifier.wrapContentSize(Alignment.Center)) {
-            Text(text = "aún no tienes cuenta?")
+            Text(text = stringResource(id = R.string.no_count))
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 modifier = Modifier
                     .clickable(true) {
                         navController.navigate("signup")
                     },
-                text = "registrate",
+                text = stringResource(id = R.string.singup_2),
                 fontWeight = FontWeight.Bold
             )
         }
@@ -131,7 +132,7 @@ fun Login(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(top = 16.dp)
         ){
-            Text(text = "inicia sesión con redes sociales",
+            Text(text = stringResource(id = R.string.login_social_network),
                 color = Color.White,
                 fontSize = 20.sp
                 )
@@ -143,7 +144,7 @@ fun Login(navController: NavHostController) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "inicia con google",
+                Text(text = stringResource(id = R.string.login_google),
                     fontSize = 20.sp)
             }
         }

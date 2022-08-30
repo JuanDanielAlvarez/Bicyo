@@ -2,17 +2,24 @@ package com.bicyo.bicyo.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+
+import com.bicyo.bicyo.R
 import com.bicyo.bicyo.data.entities.CyclingGroup
+
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
@@ -23,8 +30,40 @@ fun GroupCard(navController: NavHostController, cyclingGroup: CyclingGroup){
             .background(Color.Blue)
             .clickable { navController.navigate("group_poll/${cyclingGroup.id}") }
     ){
-        Column() {
-            Text(text = cyclingGroup.name)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp, 0.dp, 0.dp, 0.dp)
+                .background(Color.LightGray)
+        ){
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Icon(painter = painterResource(id = R.drawable.personas),
+                    contentDescription = "person icon",
+                    Modifier.size(40.dp),
+                    tint = Color.Black)
+                Spacer(modifier = Modifier.width(20.dp))
+                Text(text = cyclingGroup.name, textAlign = TextAlign.End)
+            }
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier
+                        .width(150.dp)
+                ){
+                    Text(text = "Miembros")
+                    Text(text = "${cyclingGroup.members.size}")
+                }
+
+            }
         }
     }
 }
