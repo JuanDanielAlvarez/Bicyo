@@ -44,27 +44,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.bicyo.bicyo.data.daos.UserDAO
 
 @Composable
 fun Login(navController: NavHostController) {
-    val currentUserId = 1
-    var email = remember {
-        mutableStateOf("")
-    }
-    var password = remember {
-        mutableStateOf("")
-    }
-
-    val passwordVisible = remember {
-        mutableStateOf(false)
-    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
     ){
+        val currentUserId = 1
+        val email = remember {
+            mutableStateOf("")
+        }
+        val password = remember {
+            mutableStateOf("")
+        }
 
+        val passwordVisible = remember {
+            mutableStateOf(false)
+        }
         Text(text = stringResource(id = R.string.app),
             style = TextStyle(
                 fontSize = 64.sp,
@@ -244,6 +244,7 @@ private fun guardarDatosEnPreferencias(
     val manejadorArchivo = ExternalFileManager(context as Activity)
     manejadorArchivo.SaveInformation(listadoAGrabar)
 }
+
 @Preview(
     showBackground = true,
     widthDp = 414,

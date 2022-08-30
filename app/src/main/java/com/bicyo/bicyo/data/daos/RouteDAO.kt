@@ -64,4 +64,24 @@ class RouteDAO() : DAO<Route> {
         return routes
     }
 
+    fun getAllForUser(groupId: Int): List<Route> {
+        //Obtener todos los grupos en base al id del usuario
+        val user = User(
+            1,
+            "juan.alvarez@epn.edu.ec",
+            "Juan Alvarez",
+            "",
+            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+            1,
+            1,
+            listOf(),
+            listOf()
+        )
+        val routes = listOf(
+            Route(1, 1, "Ruta 1", 100.0f, user, null, mutableListOf()),
+            Route(1, 1, "Ruta 1", 100.0f, user, null, mutableListOf())
+        )
+        return routes
+    }
+
 }
