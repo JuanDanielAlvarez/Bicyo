@@ -24,9 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.Route
-import com.bicyo.bicyo.entities.User
+
+
 import com.bicyo.bicyo.ui.components.ImageFromUrl
+
+import com.bicyo.bicyo.data.entities.Route
+import com.bicyo.bicyo.data.entities.User
+
 import com.bicyo.bicyo.ui.components.RouteCard
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 import com.bicyo.bicyo.R
@@ -34,9 +38,11 @@ import com.bicyo.bicyo.R
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun Explore(navController: NavHostController,userId:Int) {
+
     Box(modifier = Modifier
         .fillMaxWidth()
         .height(700.dp)) {
+
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(onClick = { navController.navigate("create_route/${userId}/0") },

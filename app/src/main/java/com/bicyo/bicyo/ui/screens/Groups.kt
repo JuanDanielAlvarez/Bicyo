@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.CyclingGroup
+import com.bicyo.bicyo.data.entities.CyclingGroup
 import com.bicyo.bicyo.ui.components.GroupCard
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 

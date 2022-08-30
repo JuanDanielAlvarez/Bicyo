@@ -16,8 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+
 import com.bicyo.bicyo.R
-import com.bicyo.bicyo.entities.CyclingGroup
+import com.bicyo.bicyo.data.entities.CyclingGroup
+
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
