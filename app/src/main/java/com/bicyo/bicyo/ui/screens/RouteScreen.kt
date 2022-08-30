@@ -27,7 +27,7 @@ fun RouteScreen(navController: NavHostController, routeId: Int?) {
 
         //Placeholder data
         RouteMap(currentRoute)
-        RouteCard(navController, Route(1, 1, "Ruta 1",100.0f, user,null))
+        RouteCard(navController, Route(1, 1, "Ruta 1",100.0f, user,null),user)
     }
 }
 
