@@ -4,16 +4,14 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import com.bicyo.bicyo.data.entities.Route
@@ -21,6 +19,8 @@ import com.bicyo.bicyo.tools.TaskRequestDirections
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import com.bicyo.bicyo.R
+
 
 @Composable
 fun ColumnScope.RouteMapCreator(route: Route) {
@@ -66,10 +66,8 @@ fun ColumnScope.RouteMapCreator(route: Route) {
         )
     }
 
-
     AskLocationPermissions {
-
-        Box(Modifier.height(600.dp)) {
+        Box(Modifier.height(680.dp)) {
             GoogleMap(
                 properties = mapProperties,
                 uiSettings = mapUiSettings,
@@ -90,11 +88,9 @@ fun ColumnScope.RouteMapCreator(route: Route) {
                         )
                     }
                 }
-
                 Polyline(
                     points = renderedPaths.flatten()
                 )
-
             }
             Row(
                 modifier = Modifier.align(Alignment.BottomCenter)
@@ -108,8 +104,9 @@ fun ColumnScope.RouteMapCreator(route: Route) {
                         isFirstPoint = false
                     }
                 }) {
-                    Text(text = "Agregar punto")
+                    Text(text = stringResource(id = R.string.add_point))
                 }
+                Spacer(modifier = Modifier.width(10.dp))
                 Button(onClick = {
                     if(!isFirstPoint and (route.points.size > 1)){
                         route.points.removeLast()
@@ -128,16 +125,12 @@ fun ColumnScope.RouteMapCreator(route: Route) {
                         if(renderedPaths.size > 0) renderedPaths.removeLast()
                     }
                 }) {
-                    Text(text = "Eliminar punto ")
+                    Text(text = stringResource(id = R.string.delete_point))
                 }
             }
-
         }
-
     }
-
 }
-
 
 @Composable
 private fun AskLocationPermissions(content: @Composable () -> Unit) {
@@ -155,7 +148,6 @@ private fun AskLocationPermissions(content: @Composable () -> Unit) {
                 }
             }
         }
-
 
     if (ActivityCompat.checkSelfPermission(
             context,

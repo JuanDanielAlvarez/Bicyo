@@ -21,4 +21,24 @@
     <string name="description">Descripción</string>
     <string name="distance">Distancia</string>
     <string name="author">Autor</string>
+    <string name="explore_label">Explore</string>
+    <string name="explore">explore</string>
+    <string name="groups_label">Groups</string>
+    <string name="groups">groups</string>
+    <string name="profile_label">Profile</string>
+    <string name="profile">profile</string>
+    <string name="members">Miembros</string>
+    <string name="poll">Poll</string>
+    <string name="bike_icon_desc">bike icon</string>
+    <string name="add_point">Agregar punto</string>
+    <string name="delete_point">Eliminar punto</string>
+    <string name="create">Create</string>
+    <string name="my_profile_edit">Mi perfil / editar perfil</string>
+    <string name="change_photo">Cambiar foto de perfil</string>
+    <string name="about">Acerca de mi</string>
+    <string name="save">Guardar</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="my_routes">Rutas publicadas </string>
+    <string name="my_groups">Grupos </string>
 </resources>

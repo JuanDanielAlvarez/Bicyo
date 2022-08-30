@@ -84,7 +84,7 @@ fun Signup(navController: NavHostController) {
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(
                     Icons.Filled.Person,
-                    contentDescription = stringResource(id = R.string.name_textField),
+                    contentDescription = stringResource(id = R.string.user_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
@@ -150,6 +150,11 @@ fun Signup(navController: NavHostController) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
+                Icon(painter = painterResource(id = R.drawable.google1),
+                    contentDescription = "",
+                    Modifier.height(26.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(text = stringResource(id = R.string.singup_google),
                     fontSize = 20.sp)
             }

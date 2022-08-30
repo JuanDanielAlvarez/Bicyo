@@ -45,7 +45,7 @@ fun ImageFromUrl(url:String){
             model = R.drawable.spinner,
             imageLoader = imgLoader
         ),
-        contentDescription = "hola",
+        contentDescription = "",
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .clip(CircleShape)

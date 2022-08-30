@@ -11,23 +11,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-
 import com.bicyo.bicyo.R
 import com.bicyo.bicyo.data.entities.CyclingGroup
-
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
 fun GroupCard(navController: NavHostController, cyclingGroup: CyclingGroup){
-    Card(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Blue)
+            .background(Color.LightGray)
             .clickable { navController.navigate("group_poll/${cyclingGroup.id}") }
     ){
         Column(
@@ -43,7 +42,7 @@ fun GroupCard(navController: NavHostController, cyclingGroup: CyclingGroup){
                     .fillMaxWidth()
             ) {
                 Icon(painter = painterResource(id = R.drawable.personas),
-                    contentDescription = "person icon",
+                    contentDescription = stringResource(id = R.string.user_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Black)
                 Spacer(modifier = Modifier.width(20.dp))
@@ -59,7 +58,7 @@ fun GroupCard(navController: NavHostController, cyclingGroup: CyclingGroup){
                     modifier = Modifier
                         .width(150.dp)
                 ){
-                    Text(text = "Miembros")
+                    Text(text = stringResource(id = R.string.members))
                     Text(text = "${cyclingGroup.members.size}")
                 }
 

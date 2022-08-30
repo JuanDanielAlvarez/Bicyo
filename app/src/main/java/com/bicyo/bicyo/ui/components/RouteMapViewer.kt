@@ -17,6 +17,8 @@ import com.bicyo.bicyo.tools.TaskRequestDirections
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import com.bicyo.bicyo.R
+
 
 @Composable
 fun ColumnScope.RouteMapViewer(route: Route) {
