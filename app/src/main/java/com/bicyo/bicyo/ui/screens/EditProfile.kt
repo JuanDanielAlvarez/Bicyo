@@ -1,36 +1,234 @@
 package com.bicyo.bicyo.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Key
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImagePainter.State.Empty.painter
+import coil.compose.rememberImagePainter
+import com.bicyo.bicyo.R
 import com.bicyo.bicyo.data.entities.User
 import com.bicyo.bicyo.ui.components.ImageFromUrl
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
 fun EditProfile(navController: NavHostController, userId: Int?) {
+
+    val currentUserId = 1
+    val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
+    val name = remember {
+        mutableStateOf(user.name)
+    }
+    val email = remember {
+        mutableStateOf(user.email)
+    }
+    val password = remember {
+        mutableStateOf("")
+    }
+
+    val passwordVisible = remember {
+        mutableStateOf(false)
+    }
+
+    val description = remember {
+        mutableStateOf(user.description)
+    }
+
+    val imageUri = rememberSaveable { mutableStateOf(user.profilePictureUrl) }
+    val painter = rememberImagePainter(
+        if (imageUri.value.isEmpty())
+            R.drawable.spinner
+        else
+            imageUri.value
+    )
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { imageUri.value = it.toString() }
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Text(text = "Mi perfil / editar perfil",
+        style = TextStyle(
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold)
+    )
+
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
     ){
-        Text(text = "EditProfile")
-
-        val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
-
-        ImageFromUrl(url = user.profilePictureUrl)
-
-        Button(onClick = {
-            navController.navigate("profile/${userId}")
-        }) {
-            Text(text = "save")
+        Spacer(modifier = Modifier.height(30.dp))
+        Column(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(100.dp)
+            ) {
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clickable { launcher.launch("image/*") },
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Button(onClick = { navController.navigate("explore/${currentUserId}") },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF000000),
+                    contentColor = Color(0xFFFFFFFF)
+                ),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(text = "Cambiar foto de perfil",
+                    fontSize = 16.sp)
+            }
         }
     }
+
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+        modifier = Modifier
+            .fillMaxSize()
+    ){
+
+
+        Spacer(modifier = Modifier.height(225.dp))
+        Column(horizontalAlignment = Alignment.Start) {
+            Text(text = "Nombre")
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(
+                    Icons.Filled.Person,
+                    contentDescription = "user icon",
+                    Modifier.size(30.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = name.value,
+                    onValueChange = { name.value = it },
+                    placeholder = { Text(text = "Nombre Apellido") },
+                    modifier = Modifier.fillMaxWidth(0.8f)
+                                       .fillMaxHeight(0.1f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Correo electrónico")
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(
+                    Icons.Filled.Person,
+                    contentDescription = "user icon",
+                    Modifier.size(30.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = email.value,
+                    onValueChange = { email.value = it },
+                    placeholder = { Text(text = "example@email.com") },
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Contraseña")
+            Row(verticalAlignment = Alignment.Bottom) {
+                Icon(Icons.Filled.Key,
+                    contentDescription = "password icon",
+                    Modifier.size(30.dp),
+                    tint = Color.Gray)
+                TextField(
+                    value = password.value,
+                    onValueChange = { password.value = it },
+                    placeholder = { Text(text = "***********") },
+                    visualTransformation = if (passwordVisible.value) VisualTransformation.None
+                    else PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Text(text = "Acerca de mi")
+            Row(verticalAlignment = Alignment.Bottom) {
+
+                TextField(
+                    value = description.value,
+                    onValueChange = { description.value = it },
+                    placeholder = { Text(text = "") },
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                )
+            }
+
+
+
+
+        }
+
+
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(onClick = { navController.navigate("explore/${currentUserId}") },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFF000000),
+                contentColor = Color(0xFFFFFFFF)
+            ),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Text(text = "Guardar",
+                fontSize = 18.sp)
+        }
+
+    }
+
+
+
 }
 
 
