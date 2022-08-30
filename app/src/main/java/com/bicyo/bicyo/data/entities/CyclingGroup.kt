@@ -1,4 +1,4 @@
-package com.bicyo.bicyo.entities
+package com.bicyo.bicyo.data.entities
 
 data class CyclingGroup(
     val id:Int,

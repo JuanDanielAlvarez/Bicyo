@@ -1,5 +1,6 @@
 package com.bicyo.bicyo.ui.screens
 
+
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,9 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+
 import coil.compose.rememberImagePainter
 import com.bicyo.bicyo.R
-import com.bicyo.bicyo.entities.User
+import com.bicyo.bicyo.data.entities.User
+
 import com.bicyo.bicyo.ui.components.ImageFromUrl
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 

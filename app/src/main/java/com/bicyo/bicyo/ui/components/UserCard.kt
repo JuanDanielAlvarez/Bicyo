@@ -1,7 +1,6 @@
 package com.bicyo.bicyo.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Card
@@ -12,9 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.CyclingGroup
-import com.bicyo.bicyo.entities.Route
-import com.bicyo.bicyo.entities.User
+import com.bicyo.bicyo.data.entities.User
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
