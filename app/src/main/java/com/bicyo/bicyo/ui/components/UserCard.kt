@@ -32,10 +32,10 @@ import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
 fun UserCard(navController: NavHostController, user: User){
-    Card(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Blue)
+            .background(Color.LightGray)
     ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

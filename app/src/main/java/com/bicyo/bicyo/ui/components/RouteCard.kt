@@ -49,7 +49,7 @@ fun RouteCard(navController: NavHostController, route: Route, user: User){
                     .fillMaxWidth()
             ) {
                 Icon(painter = painterResource(id = R.drawable.bicicleta),
-                    contentDescription = "bike icon",
+                    contentDescription = stringResource(id = R.string.bike_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Black)
                 Spacer(modifier = Modifier.width(20.dp))

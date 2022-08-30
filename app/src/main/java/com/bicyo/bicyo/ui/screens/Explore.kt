@@ -41,7 +41,7 @@ fun Explore(navController: NavHostController,userId:Int) {
 
     Box(modifier = Modifier
         .fillMaxWidth()
-        .height(700.dp)) {
+        .height(750.dp)) {
 
         Scaffold(
             floatingActionButton = {
@@ -62,11 +62,11 @@ fun Explore(navController: NavHostController,userId:Int) {
             // placeholder data
             val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
             val routes = listOf(
-                Route(1, 1, "Ruta 1",100.0f, user,null,mutableListOf()),
-                Route(1, 1, "Ruta 2",100.0f, user,null,mutableListOf()),
-                Route(1, 1, "Ruta 2",100.0f, user,null,mutableListOf()),
-                Route(1, 1, "Ruta 2",100.0f, user,null,mutableListOf()),
-                Route(1, 1, "Ruta 2",100.0f, user,null,mutableListOf()),
+                Route(1, 1, "Parque metropolitano",40.0f, user,null,mutableListOf()),
+                Route(1, 1, "Ruta de las iglesias",20.0f, user,null,mutableListOf()),
+                Route(1, 1, "Parque bicentenario",55.0f, user,null,mutableListOf()),
+                Route(1, 1, "Panecillo",12.0f, user,null,mutableListOf()),
+                Route(1, 1, "Ciclopaseo",44.0f, user,null,mutableListOf()),
             )
 
             for(route in routes){

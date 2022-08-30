@@ -25,8 +25,8 @@ fun Groups(navController: NavHostController, userId: Int?) {
             .fillMaxSize()
     ){
         val cyclingGroups = listOf(
-            CyclingGroup(2,"Grupo 2", listOf(), listOf()),
-            CyclingGroup(3,"Grupo 3", listOf(), listOf())
+            CyclingGroup(2,"BiciQ", listOf(), listOf()),
+            CyclingGroup(3,"Polibike", listOf(), listOf())
         )
         for(group in cyclingGroups){
             Box(

@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -75,7 +76,7 @@ fun Profile(navController: NavHostController, userId: Int?) {
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    Text(text = "Mi perfil",
+    Text(text = stringResource(id = R.string.my_profile),
         style = TextStyle(
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold)
@@ -104,9 +105,7 @@ fun Profile(navController: NavHostController, userId: Int?) {
                     painter = painter,
                     contentDescription = null,
                     modifier = Modifier
-                        .wrapContentSize()
-                        .clickable { launcher.launch("image/*") },
-                    contentScale = ContentScale.Crop
+                        .wrapContentSize(),
                 )
             }
 
@@ -123,20 +122,19 @@ fun Profile(navController: NavHostController, userId: Int?) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "Editar perfil",
+                Text(text = stringResource(id = R.string.edit_profile),
                     fontSize = 18.sp)
             }
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            Text("Rutas publicadas ".plus(user.publishedRoutes))
-            Text("Grupos ".plus(user.numberOfGroups))
+            Text(stringResource(id = R.string.my_routes).plus(user.publishedRoutes))
+            Text(stringResource(id = R.string.my_groups).plus(user.numberOfGroups))
 
         }
     }
 
 }
-
 
 @Preview(
     showBackground = true,

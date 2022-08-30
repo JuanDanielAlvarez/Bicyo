@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -15,6 +16,7 @@ import com.bicyo.bicyo.data.entities.Route
 import com.bicyo.bicyo.data.entities.User
 import com.bicyo.bicyo.ui.components.RouteMapCreator
 import com.bicyo.bicyo.ui.theme.BicyoTheme
+import com.bicyo.bicyo.R
 
 
 @Composable
@@ -36,7 +38,7 @@ fun CreateRouteMap(navController:NavHostController, userId:Int, groupId:Int) {
             //Agregar la ruta al usuario si es del caso
             navController.navigate("explore/${userId}")
         }) {
-            Text(text = "Create")
+            Text(text = stringResource(id = R.string.create))
         }
     }
 }

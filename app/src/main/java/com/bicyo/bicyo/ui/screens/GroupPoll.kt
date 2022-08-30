@@ -37,8 +37,8 @@ fun GroupPoll(navController: NavHostController, groupId: Int?) {
             // placeholder data
             val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
             val routes = listOf(
-                Route(1, 1, "Ruta 1",100.0f, user,null,mutableListOf()),
-                Route(1, 1, "Ruta 1",100.0f, user,null,mutableListOf()),
+                Route(1, 1, "Parque metropolitano",40.0f, user,null,mutableListOf()),
+                Route(1, 1, "Ruta de las iglesias",20.0f, user,null,mutableListOf()),
 
                 )
             for(route in routes){

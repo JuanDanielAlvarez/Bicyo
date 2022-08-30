@@ -30,7 +30,7 @@ fun GroupMembers(navController: NavHostController, groupId: Int?) {
     //Placeholder data
     val currentGroup = CyclingGroup(
         groupId?:1,
-        "Grupo 1",
+        "Polibike",
         listOf(
             User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf()),
             User(2,"daniel.aimacana@epn.edu.ec","Daniel Aimacana","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())

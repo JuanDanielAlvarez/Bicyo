@@ -144,6 +144,11 @@ fun Login(navController: NavHostController) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
+                Icon(painter = painterResource(id = R.drawable.google1),
+                    contentDescription = "",
+                    Modifier.height(26.dp)
+                    )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(text = stringResource(id = R.string.login_google),
                     fontSize = 20.sp)
             }
