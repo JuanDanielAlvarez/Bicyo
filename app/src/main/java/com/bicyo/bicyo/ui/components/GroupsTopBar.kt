@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.bicyo.bicyo.entities.CyclingGroup
+import com.bicyo.bicyo.data.entities.CyclingGroup
 
 
 @Composable

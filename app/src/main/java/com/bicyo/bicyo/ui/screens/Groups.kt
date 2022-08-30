@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.CyclingGroup
+import com.bicyo.bicyo.data.entities.CyclingGroup
 import com.bicyo.bicyo.ui.components.GroupCard
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
