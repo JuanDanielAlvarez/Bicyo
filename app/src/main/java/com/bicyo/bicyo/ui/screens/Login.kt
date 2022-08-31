@@ -2,6 +2,8 @@ package com.bicyo.bicyo.ui.screens
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
@@ -13,9 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +43,9 @@ import com.google.android.gms.tasks.Task
 import com.bicyo.bicyo.data.daos.UserDAO
 import com.bicyo.bicyo.data.entities.Route
 import com.bicyo.bicyo.data.entities.User
+import com.bicyo.bicyo.storage.EXTRA_LOGIN
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun Login(navController: NavHostController) {
@@ -94,7 +97,11 @@ fun Login(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
-                    )
+                    ),
+                    trailingIcon = {
+                        if (email.value=="")
+                            Icon(Icons.Filled.Error, "error", tint = MaterialTheme.colors.error)
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -115,59 +122,17 @@ fun Login(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
-                    )
+                    ),
+                    trailingIcon = {
+                        if (password.value=="")
+                            Icon(Icons.Filled.Error, "error", tint = MaterialTheme.colors.error)
+                    }
                 )
             }
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-
-                val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(
-
-                ), listOf())
-                val userDAO = UserDAO()
-                val group = userDAO.get(0)
-                val group2 = userDAO.get(1)
-                if (group2 != null) {
-                    group2.name = "PEPEGROUP"
-                    userDAO.update(1,group2)
-                }
-                userDAO.delete(1)
-//
-//                val currentGroup = CyclingGroup(1,"Grupo Maravilla", listOf(user), listOf())
-//
-//                val groupDAO = CyclingGroupDAO()
-//                groupDAO.save(currentGroup)
-//                val group = groupDAO.get(0)
-//                groupDAO.save(group!!)
-//                val group2 = groupDAO.get(1)
-//                if (group2 != null) {
-//                    group2.name = "PEPEGROUP"
-//                    groupDAO.update(1,group2)
-//                }
-//                groupDAO.delete(1)
-
-
-
-//                val routeDAO = RouteDAO()
-//                val userDAO = UserDAO()
-
-
-                navController.navigate("explore/${currentUserId}")
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFF000000),
-                contentColor = Color(0xFFFFFFFF)
-            ),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.login),
-                fontSize = 20.sp
-            )
-        }
+        LoginWithEmailButton(navController,email.value,password.value,currentUserId)
         Spacer(modifier = Modifier.height(16.dp))
         Row(Modifier.wrapContentSize(Alignment.Center)) {
             Text(text = stringResource(id = R.string.no_count))
@@ -199,13 +164,80 @@ fun Login(navController: NavHostController) {
             LoginWithGoogleButton(navController, currentUserId)
         }
     }
-    print("aaaaaaa")
-    /*
-    leerDatosDePreferencias(
+}
+private fun validatePassword(password: String): String {
+    if (password.isEmpty()) {
+        return "La clave es obligatoria"
+    }
+    if (password.length < 8) {
+        return "La clave debe tener al menos 8 caracteres"
+    }
+    return ""
+}
 
-        { email = TextFieldValue(it) },
-        { password = TextFieldValue(it) }
-    )*/
+private fun validateEmail(email: String): String {
+    if (email.isEmpty()) {
+        return "El email es obligatorio"
+    }
+    val pattern = Patterns.EMAIL_ADDRESS
+    if (!pattern.matcher(email).matches()) {
+        return "El email ingresado no es válido"
+    }
+    return ""
+}
+
+fun AutenticarUsuario(
+    context: Context,
+    email: String,
+    password: String,
+    onsSuccess: () -> Unit
+) {
+    val auth = Firebase.auth
+    auth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener(context as Activity) { task ->
+            if (task.isSuccessful) {
+                Log.d(EXTRA_LOGIN, "signInWithEmail:success")
+                onsSuccess()
+            } else {
+                Log.w(EXTRA_LOGIN, "signInWithEmail:failure", task.exception)
+                Toast.makeText(context, task.exception!!.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+}
+
+@Composable
+private fun LoginWithEmailButton(
+    navController: NavHostController,
+    email: String,
+    password: String,
+    currentUserId: Int
+) {
+    val context = LocalContext.current
+    var authenticated by remember { mutableStateOf(false) }
+
+    Button(
+        onClick = {
+
+            if (validateEmail(email) == "" && validatePassword(password) == "") {
+                AutenticarUsuario(
+                    context,
+                    email,
+                    password,
+                    { navController.navigate("explore/${currentUserId}")})
+            }
+
+        },
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xFF000000),
+            contentColor = Color(0xFFFFFFFF)
+        ),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.login),
+            fontSize = 20.sp
+        )
+    }
 }
 
 @Composable
