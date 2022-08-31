@@ -76,11 +76,11 @@ fun Profile(navController: NavHostController, userId: Int?) {
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    Text(text = stringResource(id = R.string.my_profile),
-        style = TextStyle(
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold)
-    )
+//    Text(text = stringResource(id = R.string.my_profile),
+//        style = TextStyle(
+//            fontSize = 22.sp,
+//            fontWeight = FontWeight.Bold)
+//    )
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

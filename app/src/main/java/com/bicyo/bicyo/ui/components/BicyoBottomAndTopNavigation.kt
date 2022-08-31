@@ -24,24 +24,24 @@ fun BicyoBottomAndTopNavigation(
     content: @Composable () -> Unit
 ) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text= "Bycio") },
-                navigationIcon = if (navController.previousBackStackEntry != null) {
-                    {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
-                        }
-                    }
-                } else {
-                    null
-                }
-
-            )
-        },
+//        topBar = {
+//            TopAppBar(
+//                title = { Text(text= "Bycio") },
+//                navigationIcon = if (navController.previousBackStackEntry != null) {
+//                    {
+//                        IconButton(onClick = { navController.navigateUp() }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.ArrowBack,
+//                                contentDescription = "Back"
+//                            )
+//                        }
+//                    }
+//                } else {
+//                    null
+//                }
+//
+//            )
+//        },
         bottomBar = {
             BottomAppBar {
                 BottomNavigationItem(

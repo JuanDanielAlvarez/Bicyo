@@ -39,7 +39,6 @@ fun GroupPoll(navController: NavHostController, groupId: Int?) {
             val routes = listOf(
                 Route(1, 1, "Parque metropolitano",40.0f, user,null,mutableListOf()),
                 Route(1, 1, "Ruta de las iglesias",20.0f, user,null,mutableListOf()),
-
                 )
             for(route in routes){
                 Box(
