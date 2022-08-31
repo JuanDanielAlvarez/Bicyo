@@ -14,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bicyo.bicyo.R
 import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
@@ -47,29 +50,29 @@ fun Signup(navController: NavHostController) {
         val passwordVisible = remember {
             mutableStateOf(false)
         }
-        Text(text = "BICyO",
+        Text(text = stringResource(id = R.string.app),
             style = TextStyle(
                 fontSize = 64.sp,
                 fontWeight = FontWeight.Bold)
         )
-        Text(text = "registrarse",
+        Text(text = stringResource(id = R.string.singup),
             style = TextStyle(
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold)
         )
         Spacer(modifier = Modifier.height(32.dp))
         Column(horizontalAlignment = Alignment.Start) {
-            Text(text = "Nombre")
+            Text(text = stringResource(id = R.string.name))
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(
                     Icons.Filled.Person,
-                    contentDescription = "user icon",
+                    contentDescription = stringResource(id = R.string.user_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
                     value = name.value,
                     onValueChange = { name.value = it },
-                    placeholder = { Text(text = "Nombre Apellido") },
+                    placeholder = { Text(text = stringResource(id = R.string.name_textField)) },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
@@ -77,17 +80,17 @@ fun Signup(navController: NavHostController) {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Correo electrónico")
+            Text(text = stringResource(id = R.string.email))
             Row(verticalAlignment = Alignment.Bottom) {
                 Icon(
                     Icons.Filled.Person,
-                    contentDescription = "user icon",
+                    contentDescription = stringResource(id = R.string.user_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
                     value = email.value,
                     onValueChange = { email.value = it },
-                    placeholder = { Text(text = "example@email.com") },
+                    placeholder = { Text(text = stringResource(id = R.string.email_textField)) },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color(0xFFFFFFFF)
@@ -95,16 +98,16 @@ fun Signup(navController: NavHostController) {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Contraseña")
+            Text(text = stringResource(id = R.string.password))
             Row(verticalAlignment = Alignment.Bottom) {
-                Icon(Icons.Filled.Key,
-                    contentDescription = "password icon",
+                Icon(painter = painterResource(id = R.drawable.candado_cerrado),
+                    contentDescription = stringResource(id = R.string.password_icon_desc),
                     Modifier.size(40.dp),
                     tint = Color.Gray)
                 TextField(
                     value = password.value,
                     onValueChange = { password.value = it },
-                    placeholder = { Text(text = "***********") },
+                    placeholder = { Text(text = stringResource(id = R.string.password_textField)) },
                     visualTransformation = if (passwordVisible.value) VisualTransformation.None
                     else PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(0.8f),
@@ -123,7 +126,7 @@ fun Signup(navController: NavHostController) {
             ),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text(text = "registrarse",
+            Text(text = stringResource(id = R.string.singup),
                 fontSize = 20.sp)
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -135,7 +138,7 @@ fun Signup(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(top = 16.dp)
         ){
-            Text(text = "registrate con redes sociales",
+            Text(text = stringResource(id = R.string.singup_social_network),
                 color = Color.White,
                 fontSize = 20.sp
             )
@@ -147,7 +150,12 @@ fun Signup(navController: NavHostController) {
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "registrate con google",
+                Icon(painter = painterResource(id = R.drawable.google1),
+                    contentDescription = "",
+                    Modifier.height(26.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = stringResource(id = R.string.singup_google),
                     fontSize = 20.sp)
             }
         }

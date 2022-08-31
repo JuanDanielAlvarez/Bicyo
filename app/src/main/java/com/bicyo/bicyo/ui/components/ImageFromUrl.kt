@@ -6,10 +6,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavHostController
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -17,7 +15,6 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.bicyo.bicyo.R
-import com.bicyo.bicyo.entities.Route
 
 @Composable
 fun ImageFromUrl(url:String){
@@ -48,7 +45,7 @@ fun ImageFromUrl(url:String){
             model = R.drawable.spinner,
             imageLoader = imgLoader
         ),
-        contentDescription = "hola",
+        contentDescription = "",
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .clip(CircleShape)

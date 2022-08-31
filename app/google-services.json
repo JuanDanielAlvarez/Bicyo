@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "903132832457",
+    "project_id": "bicyo-75ce9",
+    "storage_bucket": "bicyo-75ce9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903132832457:android:c8dc85fd95353e136de318",
+        "android_client_info": {
+          "package_name": "com.bicyo.bicyo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903132832457-09vj4gabtckse9k16pc0c8lcas0nris8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bicyo.bicyo",
+            "certificate_hash": "695db1a9337a1f66690a4c1ce80f54c53a9b6f67"
+          }
+        },
+        {
+          "client_id": "903132832457-uecqmd1neab70qb20cms26fs6dkdj6qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvVYnlGlNQrx4ou0MGcGNZMsihGOzwU4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903132832457-uecqmd1neab70qb20cms26fs6dkdj6qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

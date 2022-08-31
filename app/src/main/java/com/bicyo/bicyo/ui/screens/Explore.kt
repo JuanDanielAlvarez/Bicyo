@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -22,110 +24,67 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bicyo.bicyo.entities.Route
-import com.bicyo.bicyo.entities.User
+
+
+import com.bicyo.bicyo.ui.components.ImageFromUrl
+
+import com.bicyo.bicyo.data.entities.Route
+import com.bicyo.bicyo.data.entities.User
+
 import com.bicyo.bicyo.ui.components.RouteCard
 import com.bicyo.bicyo.ui.theme.BicyoTheme
+import com.bicyo.bicyo.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun Explore(navController: NavHostController,userId:Int) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ){
-        Text(text = "Explore")
-        // placeholder data
-        val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
-        val routes = listOf(
-            Route(1, 1, "Ruta 1",100.0f, user,null),
-            Route(1, 1, "Ruta 1",100.0f, user,null),
-        )
-        Box(
-            modifier = Modifier
-                .padding(0.dp, 12.dp, 0.dp, 0.dp)
-                .width(max(300.dp, 350.dp))
-                .height(100.dp)
-                .clip(RoundedCornerShape(25))
-                .background(Color.LightGray)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            routeCard(nameRoute = "Ruta 1", user = user)
-        }
-        Box(
-            modifier = Modifier
-                .padding(0.dp, 12.dp, 0.dp, 0.dp)
-                .width(max(300.dp, 350.dp))
-                .height(100.dp)
-                .clip(RoundedCornerShape(25))
-                .background(Color.LightGray)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            routeCard(nameRoute = "Ruta 2", user = user)
-        }
-        for(route in routes){
-            RouteCard(navController,route)
-        }
+
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(750.dp)) {
+
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(onClick = { navController.navigate("create_route/${userId}/0") },
-                    contentColor = Color.White,
-                    backgroundColor = Color(0xFF000000)) {
-                Icon(Icons.Filled.Crop,
-                    contentDescription = "Create route button")
+                    contentColor = Color.Black,
+                    backgroundColor = Color(0xFFFFFFFF),
+                    modifier = Modifier.width(50.dp)
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.boton_mas),
+                        contentDescription = stringResource(id = R.string.create_button_desc))
                 }
             },
             floatingActionButtonPosition = FabPosition.End
-        ) {}
-    }
-}
+        ) {Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ){
+            // placeholder data
 
-@Composable
-fun routeCard(
-    nameRoute: String,
-    user: User
-){
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp, 0.dp, 0.dp, 0.dp)
-    ){
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Icon(
-                Icons.Filled.PedalBike,
-                contentDescription = "bike icon",
-                Modifier.size(40.dp),
-                tint = Color.Black)
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(text = nameRoute, textAlign = TextAlign.End)
+            val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
+            val routes = listOf(
+                Route(1, 1, "Parque metropolitano",40.0f, user,null,mutableListOf()),
+                Route(1, 1, "Ruta de las iglesias",20.0f, user,null,mutableListOf()),
+                Route(1, 1, "Parque bicentenario",55.0f, user,null,mutableListOf()),
+                Route(1, 1, "Panecillo",12.0f, user,null,mutableListOf()),
+                Route(1, 1, "Ciclopaseo",44.0f, user,null,mutableListOf()),
+            )
+
+            for(route in routes){
+                Box(
+                    modifier = Modifier
+
+                        .padding(0.dp, 12.dp, 0.dp, 0.dp)
+                        .width(max(300.dp, 350.dp))
+                        .height(100.dp)
+                        .clip(RoundedCornerShape(25))
+                        .background(Color.LightGray)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    RouteCard(navController,route,user)
+                }
+            }
         }
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .width(150.dp)
-            ){
-                Text(text = "Distancia")
-                Text(text = "18.00 km")
-            }
-            Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .width(150.dp)
-            ){
-                Text(text = "Autor")
-                Text(text = user.name)
-            }
         }
     }
 }
