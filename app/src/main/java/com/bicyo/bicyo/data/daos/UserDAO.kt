@@ -5,6 +5,7 @@ import android.util.Log
 import com.bicyo.bicyo.data.entities.CyclingGroup
 import com.bicyo.bicyo.data.entities.Route
 import com.bicyo.bicyo.data.entities.User
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -42,53 +43,74 @@ class UserDAO() : DAO<User> {
         )
     }
 
-    private fun convertToUser(userUtil: UserUtil):User {
-        val user = User(
-            userUtil.id,
-            userUtil.email,
-            userUtil.name,
-            userUtil.description,
-            userUtil.profilePictureUrl,
-            userUtil.publishedRoutes,
-            userUtil.numberOfGroups,
-            listOf(),
-            listOf()
-        )
+    private fun convertToUser(userUtil: UserUtil,onSuccess: (User?) -> Unit):Unit {
 
+        db.collection("Route")
+            .whereEqualTo("author", userUtil.id)
+            .get()
+            .addOnSuccessListener { documents ->
 
-        val routeDAO = RouteDAO()
-        val tempRoutesList = mutableListOf<Route>()
-        for(routeId in userUtil.routeIds){
-            routeDAO.get(routeId)?.let { tempRoutesList.add(it) }
-        }
-        user.routes = tempRoutesList
-
-        val groupDAO = CyclingGroupDAO()
-        val tempGroupsList = mutableListOf<CyclingGroup>()
-        for(groupId in userUtil.cyclingGroupIds){
-            groupDAO.get(groupId)?.let { tempGroupsList.add(it) }
-        }
-        user.cyclingGroups = tempGroupsList
-
-        return user
+                var routesList = mutableListOf<Route>()
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    val routeUtil = document.toObject<RouteUtil>()
+                    val route = Route(
+                        routeUtil.id,
+                        routeUtil.likeCount,
+                        routeUtil.name,
+                        routeUtil.distance,
+                        User(
+                            userUtil.id,
+                            userUtil.email,
+                            userUtil.name,
+                            userUtil.description,
+                            userUtil.profilePictureUrl,
+                            userUtil.publishedRoutes,
+                            userUtil.numberOfGroups,
+                            listOf(),
+                            listOf()
+                        ),
+                        null,
+                        routeUtil.points.map { LatLng(it[0], it[1]) }.toMutableList()
+                    )
+                    routesList.add(route)
+                }
+                val user = User(
+                    userUtil.id,
+                    userUtil.email,
+                    userUtil.name,
+                    userUtil.description,
+                    userUtil.profilePictureUrl,
+                    userUtil.publishedRoutes,
+                    userUtil.numberOfGroups,
+                    routesList,
+                    listOf()
+                )
+                onSuccess(user)
+            }
     }
 
-    override fun get(id: Int): User? {
-        var userUtil:UserUtil? = null
+    override fun get(id: Int, onSuccess: (User?) -> Unit) {
+
         db.collection("User")
             .whereEqualTo("id", id)
             .get()
             .addOnSuccessListener { documents ->
+                var userUtil:UserUtil? = null
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     userUtil = document.toObject<UserUtil>()
                 }
+                if (userUtil != null) {
+                    convertToUser(userUtil){user ->
+                        onSuccess(user)
+                    }
+                }
+
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-
-        return userUtil?.let { convertToUser(it) }
     }
 
     override fun save(user: User): Boolean {

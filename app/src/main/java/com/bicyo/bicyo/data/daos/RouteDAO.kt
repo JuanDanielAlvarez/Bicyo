@@ -1,5 +1,7 @@
 package com.bicyo.bicyo.data.daos
 
+import android.content.ContentValues
+import android.util.Log
 import com.bicyo.bicyo.data.entities.Route
 import com.bicyo.bicyo.data.entities.User
 import com.google.android.gms.maps.model.LatLng
@@ -22,7 +24,7 @@ class RouteDAO() : DAO<Route> {
 
     val db = Firebase.firestore
 
-    private fun convertToUtil(route: Route): RouteUtil {
+    fun convertToUtil(route: Route): RouteUtil {
         return RouteUtil(
             route.id,
             route.likeCount,
@@ -30,37 +32,59 @@ class RouteDAO() : DAO<Route> {
             route.distance,
             route.author.id,
             route.group?.id,
-            route.points.map { listOf(it.latitude,it.longitude) }
+            route.points.map { listOf(it.latitude, it.longitude) }
         )
     }
 
-    private fun convertToRoute(routeUtil: RouteUtil): Route {
-        val autor =
-            UserDAO().get(routeUtil.authorId) ?: User(0, "", "", "", "", 1, 1, listOf(), listOf())
-        val group = routeUtil.groupId?.let { CyclingGroupDAO().get(it) }
-
-        return Route(
-            routeUtil.id,
-            routeUtil.likeCount,
-            routeUtil.name,
-            routeUtil.distance,
-            autor,
-            group,
-            routeUtil.points.map { LatLng(it[0],it[1]) }.toMutableList()
-        )
+    fun convertToRoute(routeUtil: RouteUtil,onSuccess: (Route) -> Unit):Unit {
+        db.collection("User")
+            .whereEqualTo("id", routeUtil.authorId)
+            .get()
+            .addOnSuccessListener { documents ->
+                var user:User? = null
+                for (document in documents) {
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                    user = document.toObject<User>()
+                }
+                if(user != null){
+                    val route = Route(
+                        routeUtil.id,
+                        routeUtil.likeCount,
+                        routeUtil.name,
+                        routeUtil.distance,
+                        User(
+                            user.id,
+                            user.email,
+                            user.name,
+                            user.description,
+                            user.profilePictureUrl,
+                            user.publishedRoutes,
+                            user.numberOfGroups,
+                            listOf(),
+                            listOf()
+                        ),
+                        null,
+                        routeUtil.points.map { LatLng(it[0], it[1]) }.toMutableList()
+                    )
+                    onSuccess(route)
+                }
+            }
     }
 
-    override fun get(id: Int): Route? {
-        var routeUtil: RouteUtil? = null
+    override fun get(id: Int, onSuccess: (Route?) -> Unit): Unit {
+
         db.collection("Route")
             .whereEqualTo("id", id)
             .get()
             .addOnSuccessListener { documents ->
+                var routeUtil: RouteUtil? = null
                 for (document in documents) {
                     routeUtil = document.toObject<RouteUtil>()
                 }
+                if (routeUtil != null) {
+                    convertToRoute(routeUtil,onSuccess)
+                }
             }
-        return routeUtil?.let { convertToRoute(it) }
     }
 
     override fun save(route: Route): Boolean {
@@ -71,13 +95,15 @@ class RouteDAO() : DAO<Route> {
             .add(routeUtil)
             .addOnSuccessListener { documentReference ->
                 saved = true
-                val savedRoute = convertToRoute(routeUtil)
-                val author = savedRoute.author
-                val newList = author.routes.toMutableList()
-                newList.add(route)
-                author.routes = newList
-                author.publishedRoutes++
-                UserDAO().update(author.id,author)
+                convertToRoute(routeUtil){savedRoute ->
+                    val author = savedRoute.author
+                    val newList = author.routes.toMutableList()
+                    newList.add(route)
+                    author.routes = newList
+                    author.publishedRoutes++
+                    UserDAO().update(author.id, author)
+                }
+
             }
             .addOnFailureListener { e ->
                 saved = false

@@ -32,15 +32,15 @@ class CyclingGroupDAO() : DAO<CyclingGroup> {
 
         val routeDAO = RouteDAO()
         val tempRoutesList = mutableListOf<Route>()
-        for(routeId in groupUtil.routeIds){
-            routeDAO.get(routeId)?.let { tempRoutesList.add(it) }
-        }
+//        for(routeId in groupUtil.routeIds){
+//            routeDAO.get(routeId)?.let { tempRoutesList.add(it) }
+//        }
 
         val userDAO = UserDAO()
         val tempUserList = mutableListOf<User>()
-        for(userId in groupUtil.memberIds){
-            userDAO.get(userId)?.let { tempUserList.add(it) }
-        }
+//        for(userId in groupUtil.memberIds){
+//            userDAO.get(userId)?.let { tempUserList.add(it) }
+//        }
 
         return CyclingGroup(
             groupUtil.id,
@@ -49,17 +49,19 @@ class CyclingGroupDAO() : DAO<CyclingGroup> {
             tempRoutesList,
         )
     }
-    override fun get(id: Int): CyclingGroup? {
-        var groupUtil: CyclingGroupUtil? = null
+    override fun get(id: Int, onSuccess: (CyclingGroup?) -> Unit) {
         db.collection("CyclingGroup")
             .whereEqualTo("id", id)
             .get()
             .addOnSuccessListener { documents ->
+                var groupUtil: CyclingGroupUtil? = null
                 for (document in documents) {
                     groupUtil = document.toObject<CyclingGroupUtil>()
                 }
+                if (groupUtil != null) {
+                    onSuccess(convertToGroup(groupUtil))
+                }
             }
-        return groupUtil?.let { convertToGroup(it) }
     }
 
     override fun save(group: CyclingGroup):Boolean {

@@ -56,17 +56,17 @@ fun BicyoBottomAndTopNavigation(
                     alwaysShowLabel = false
                 )
 
-                BottomNavigationItem(
-                    icon = {
-                        Icon(Icons.Filled.Group, "groups")
-                    },
-                    label = { Text(text = stringResource(id = R.string.groups_label)) },
-                    selected = selectedItem == stringResource(id = R.string.groups),
-                    onClick = {
-                        navController.navigate("groups/${userId}")
-                    },
-                    alwaysShowLabel = false
-                )
+//                BottomNavigationItem(
+//                    icon = {
+//                        Icon(Icons.Filled.Group, "groups")
+//                    },
+//                    label = { Text(text = stringResource(id = R.string.groups_label)) },
+//                    selected = selectedItem == stringResource(id = R.string.groups),
+//                    onClick = {
+//                        navController.navigate("groups/${userId}")
+//                    },
+//                    alwaysShowLabel = false
+//                )
 
                 BottomNavigationItem(
                     icon = {
