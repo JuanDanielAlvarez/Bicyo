@@ -1,8 +1,10 @@
 package com.bicyo.bicyo.ui.components
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Person
@@ -10,6 +12,8 @@ import com.bicyo.bicyo.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.bicyo.bicyo.MainScreen
+import java.lang.reflect.Modifier
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -20,6 +24,24 @@ fun BicyoBottomAndTopNavigation(
     content: @Composable () -> Unit
 ) {
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text= "Bycio") },
+                navigationIcon = if (navController.previousBackStackEntry != null) {
+                    {
+                        IconButton(onClick = { navController.navigateUp() }) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                    }
+                } else {
+                    null
+                }
+
+            )
+        },
         bottomBar = {
             BottomAppBar {
                 BottomNavigationItem(
