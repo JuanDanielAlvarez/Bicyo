@@ -55,6 +55,8 @@ fun Login(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
     ) {
+       //email validation
+        val number = 1
         val currentUserId = 1
         val email = remember {
             mutableStateOf("")
