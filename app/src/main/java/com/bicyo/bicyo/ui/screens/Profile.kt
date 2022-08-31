@@ -41,6 +41,7 @@ import com.bicyo.bicyo.ui.theme.BicyoTheme
 
 @Composable
 fun Profile(navController: NavHostController, userId: Int?) {
+   //get all information of current user from firestore
     val currentUserId = 1
     val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
     val name = remember {

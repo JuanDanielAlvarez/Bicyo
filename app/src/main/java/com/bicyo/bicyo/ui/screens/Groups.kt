@@ -24,6 +24,7 @@ fun Groups(navController: NavHostController, userId: Int?) {
         modifier = Modifier
             .fillMaxSize()
     ){
+        //get all groups from firestore & save it in listof
         val cyclingGroups = listOf(
             CyclingGroup(2,"BiciQ", listOf(), listOf()),
             CyclingGroup(3,"Polibike", listOf(), listOf())

@@ -196,7 +196,9 @@ fun EditProfile(navController: NavHostController, userId: Int?) {
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Button(onClick = { navController.navigate("profile/${currentUserId}") },
+        Button(onClick = {
+            //actualizar datos de usario en firebase
+            navController.navigate("profile/${currentUserId}") },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFF000000),
                 contentColor = Color(0xFFFFFFFF)

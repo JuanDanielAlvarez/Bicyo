@@ -29,6 +29,8 @@ import com.bicyo.bicyo.ui.theme.BicyoTheme
 fun GroupMembers(navController: NavHostController, groupId: Int?) {
     //Placeholder data
     val currentGroup = CyclingGroup(
+
+        //get all members from a group from firestore
         groupId?:1,
         "Polibike",
         listOf(

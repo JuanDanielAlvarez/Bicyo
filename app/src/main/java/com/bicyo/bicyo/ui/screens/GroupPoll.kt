@@ -35,6 +35,7 @@ fun GroupPoll(navController: NavHostController, groupId: Int?) {
                 .fillMaxSize()
         ){
             // placeholder data
+            // get all routes currentlyl in a poll from firestore
             val user = User(1,"juan.alvarez@epn.edu.ec","Juan Alvarez","","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",1,1, listOf(), listOf())
             val routes = listOf(
                 Route(1, 1, "Parque metropolitano",40.0f, user,null,mutableListOf()),
