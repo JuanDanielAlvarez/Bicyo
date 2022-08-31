@@ -218,6 +218,8 @@ private fun LoginWithEmailButton(
     Button(
         onClick = {
 
+            navController.navigate("explore/${currentUserId}")
+
             if (validateEmail(email) == "" && validatePassword(password) == "") {
                 AutenticarUsuario(
                     context,
